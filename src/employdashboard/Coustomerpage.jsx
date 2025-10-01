@@ -74,7 +74,7 @@ const Coustomerpage = () => {
   return (
     <div className="flex-1 p-4 md:p-8 bg-gray-50">
       <div className="mb-6 md:mb-8">
-        <h1 className="text-xl md:text-2xl font-bold text-gray-900">Customer Management</h1>
+        <h1 className="text-xl md:text-2xl font-bold text-gray-900">Customer  Management</h1>
         <p className="text-sm md:text-base text-gray-600">Monitor your customer service performance</p>
       </div>
       <div className="bg-white rounded-lg shadow-sm border border-gray-200">

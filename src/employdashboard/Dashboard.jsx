@@ -1,8 +1,20 @@
 import { Users, ShoppingCart, CreditCard, Headphones, Search, Bell, User, Eye, TrendingUp, TrendingDown, Menu, X, LayoutDashboard } from 'lucide-react';
+
 import { useState } from 'react';
+import MultiStepRegistrationModal from './MultiStepRegistrationModal';
 
 const Dashboard = () => {
     const [selectedPeriod, setSelectedPeriod] = useState('Last 30 days');
+     const [isModalOpen, setIsModalOpen] = useState(false);
+
+    // This is your EXISTING Button
+    const handleOpenModal = () => {
+        setIsModalOpen(true);
+    };
+
+    const handleCloseModal = () => {
+        setIsModalOpen(false);
+    };
 
     const stats = [
         { label: 'Total Customer', value: '2,847', change: '+25% vs last month', trend: 'up', icon: Users },
@@ -85,31 +97,31 @@ const Dashboard = () => {
     return (
         <div className="flex-1 p-4 md:p-8 bg-gray-50">
             <div className="mb-4 md:mb-6">
-  <h1 className="text-lg md:text-2xl font-bold text-gray-900">
-    Dashboard Overview
-  </h1>
-  <p className="text-xs md:text-base text-gray-600">
-    Monitor your customer service performance
-  </p>
-</div>
+                <h1 className="text-lg md:text-2xl font-bold text-gray-900">
+                    Dashboard Overview
+                </h1>
+                <p className="text-xs md:text-base text-gray-600">
+                    Monitor your customer service performance
+                </p>
+            </div>
 
-<div className="pb-3 md:pb-5">
-  <h2 className="text-lg md:text-xl font-normal text-gray-700">
-    Last 30 days overview
-  </h2>
-</div>
+            <div className="pb-3 md:pb-5">
+                <h2 className="text-lg md:text-xl font-normal text-gray-700">
+                    Last 30 days overview
+                </h2>
+            </div>
 
-<div className="mb-4 md:mb-6 flex">
-  <select
-    className="px-2 md:px-4 py-1.5 md:py-2 bg-white border border-gray-300 rounded-lg text-xs md:text-base text-gray-700"
-    value={selectedPeriod}
-    onChange={(e) => setSelectedPeriod(e.target.value)}
-  >
-    <option>Last 30 days</option>
-    <option>Last 7 days</option>
-    <option>Last 90 days</option>
-  </select>
-</div>
+            <div className="mb-4 md:mb-6 flex">
+                <select
+                    className="px-2 md:px-4 py-1.5 md:py-2 bg-white border border-gray-300 rounded-lg text-xs md:text-base text-gray-700"
+                    value={selectedPeriod}
+                    onChange={(e) => setSelectedPeriod(e.target.value)}
+                >
+                    <option>Last 30 days</option>
+                    <option>Last 7 days</option>
+                    <option>Last 90 days</option>
+                </select>
+            </div>
 
             <div className="grid grid-cols-2 lg:grid-cols-6 gap-4 md:gap-6 mb-6 md:mb-8">
                 {stats.map((stat, index) => {
@@ -146,7 +158,9 @@ const Dashboard = () => {
                     <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
                         <h2 className="text-lg md:text-xl font-bold text-gray-900">Recent Business Activity</h2>
                         <div className="flex flex-col sm:flex-row gap-2 md:gap-3">
-                            <button className="px-4 md:px-6 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 font-medium text-sm md:text-base">
+                            <button
+                            onClick={handleOpenModal} 
+                            className="px-4 md:px-6 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 font-medium text-sm md:text-base">
                                 Register New Customer
                             </button>
                             <button className="px-4 md:px-6 py-2 bg-yellow-400 text-white rounded-lg hover:bg-yellow-500 font-medium text-sm md:text-base">
@@ -232,6 +246,10 @@ const Dashboard = () => {
                     </div>
                 </div>
             </div>
+              <MultiStepRegistrationModal 
+                isOpen={isModalOpen}
+                closeModal={handleCloseModal} // Pass the close handler
+            />
         </div>
     );
 };
